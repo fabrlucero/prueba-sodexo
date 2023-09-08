@@ -4,6 +4,13 @@ import { CommonModule } from '@angular/common';
 import { PersonaRoutingModule } from './persona-routing.module';
 import { HomeComponent } from './page/home/home.component';
 
+import { ButtonModule } from 'primeng/button';
+import { DynamicDialogModule } from 'primeng/dynamicdialog';
+import { ToastModule } from 'primeng/toast';
+import { TableModule } from 'primeng/table';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
+
+import { AgregarActualizarModule } from './components/agregar-actualizar/agregar-actualizar.module';
 
 @NgModule({
   declarations: [
@@ -11,7 +18,13 @@ import { HomeComponent } from './page/home/home.component';
   ],
   imports: [
     CommonModule,
-    PersonaRoutingModule
+    PersonaRoutingModule,
+    AgregarActualizarModule,
+    ButtonModule,
+    DynamicDialogModule,
+    ToastModule,
+    TableModule,
+    ConfirmDialogModule
   ]
 })
 export class PersonaModule { }

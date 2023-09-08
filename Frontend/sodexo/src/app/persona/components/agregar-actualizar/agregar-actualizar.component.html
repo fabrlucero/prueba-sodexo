@@ -1,0 +1,44 @@
+
+
+<div class="contenido">
+    <form [formGroup]="formPersona" (ngSubmit)="onSavePersona()">
+        <span class="p-float-label mt-5">
+            <input pInputText 
+            class="w-full"
+            [ngStyle]=""
+            name="txt_nombre" id="txt_nombre" formControlName="nombre" ng>
+            <label htmlFor="txt_nombre">Nombre Persona</label>
+
+        </span>
+
+        <span class="p-float-label mt-5">
+            <input pInputText 
+            class="w-full"
+            name="txt_apellido" id="txt_apellido" formControlName="apellido">
+            <label htmlFor="txt_apellido">Apellido Persona</label>
+
+        </span>
+
+        <span class="p-float-label mt-5">
+            <input pInputText 
+            class="w-full"
+            name="txt_telefono" id="txt_telefono" formControlName="telefono">
+            <label htmlFor="txt_telefono">Telefonó de la persona</label>
+
+        </span>
+
+        <span class="p-float-label mt-5">
+            <p-dropdown [options]="comunas" styleClass="w-full"
+            appendTo="body" formControlName="comuna"
+            placeholder="Seleccione una comuna" optionLabel="name" optionValue="name" inputId="float-label"></p-dropdown>
+            <label for="float-label">Seleccione una comuna</label>
+        </span>
+
+        <div class="flex justify-content-between mt-3">
+            <p-button label="Cancelar" (onClick)="onCancelar()" styleClass="p-button-danger"></p-button>
+            <p-button label="Limpiar formulario" (onClick)="onClearForm()" styleClass="p-button-warning"></p-button>
+            <p-button type="submit" *ngIf="(persona! == null)" [disabled]="!formPersona.valid" label="Guardar" styleClass="p-button-info"></p-button>
+            <p-button type="button" (onClick)="onUpdatePersona()" *ngIf="persona != null && persona!.id != null" [disabled]="!formPersona.valid" label="Actualizar" styleClass="p-button-info"></p-button>
+        </div> 
+    </form>
+</div>

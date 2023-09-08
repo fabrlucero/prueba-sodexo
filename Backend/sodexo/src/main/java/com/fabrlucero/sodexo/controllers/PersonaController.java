@@ -44,13 +44,18 @@ public class PersonaController {
     public ResponseEntity<?> getAllPersona(){
         //Obtenemos los datos de los usuarios
         List<Persona> personas = personaService.getAllPersona();
+        Map<String, Object> response = new HashMap<>();
 
         //Validamos si la lista no esta vaciá
         if(personas == null || personas.isEmpty()){
-            return  new ResponseEntity<>("No hay datos en el sistema", HttpStatus.NO_CONTENT);
+            response.put("mensaje", "No hay datos en el sistema");
+            return  new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
         }
 
-        return new ResponseEntity<>(personas, HttpStatus.OK);
+        response.put("personas", personas);
+        response.put("mensaje", "Datos encontrados");
+
+        return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
     @GetMapping("/get/{id}")
@@ -58,12 +63,18 @@ public class PersonaController {
         //Obtenemos el dato del usuario por su id
          Persona persona = personaService.getPersonaPorId(id);
 
+         Map<String, Object> response = new HashMap<>();
+
          //Validamos que exista el ID
          if(persona == null){
-             return  new ResponseEntity<>("No hay persona con el id solicitado", HttpStatus.BAD_REQUEST);
+             response.put("mensaje", "No hay persona con el id solicitado");
+             return  new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
          }
 
-         return  new ResponseEntity<>(persona, HttpStatus.OK);
+         response.put("persona", persona);
+         response.put("mensaje", "Persona encontrada, cargando datos");
+
+         return  new ResponseEntity<>(response, HttpStatus.OK);
     }
 
     @PostMapping
@@ -117,12 +128,18 @@ public class PersonaController {
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<?> deletePersona(@PathVariable Long id){
         Persona persona = personaService.getPersonaPorId(id);
+
+        Map<String, Object> response = new HashMap<>();
+
         if(persona == null){
-            return  new ResponseEntity<>("No hay datos en el sistema", HttpStatus.NO_CONTENT);
+            response.put("mensaje", "No hay datos en el sistema");
+            return  new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
         }
 
         personaService.deletePersona(id);
-        return  new ResponseEntity<>("Se ha eliminado a " + persona.getNombre(), HttpStatus.OK);
+        response.put("mensaje", "Se ha eliminado a " + persona.getNombre());
+
+        return  new ResponseEntity<>(response , HttpStatus.OK);
     }
 
 

@@ -1,1 +1,67 @@
-<p>home works!</p>
+<p-toast [life]="10000"></p-toast>
+<p-confirmDialog [style]="{width: '50vw'}" position="bottom"></p-confirmDialog>
+
+<ng-template [ngIf]="personas" [ngIfElse]="sindatos">
+  <div>
+    <p-table [value]="personas" responsiveLayout="stack"  [breakpoint]="'960px'">
+      <ng-template pTemplate="caption">
+        <div class="flex justify-content-end">
+          <div class="btn-agregar">
+            <p-button
+              label="Agregar persona"
+              abrir-dialog
+              (response)="obtenerRespuesta($event)"
+            ></p-button>
+          </div>
+        </div>
+      </ng-template>
+
+      <ng-template pTemplate="header" let-columns>
+        <tr>
+          <th>Nombre</th>
+          <th>Apellido</th>
+          <th>Telefono</th>
+          <th>Comuna</th>
+          <th>Opciones</th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-persona let-columns="columns">
+        <tr>
+          <td><span class="p-column-title">Nombre</span> {{persona.nombre}} </td>
+          <td><span class="p-column-title">Apellido</span> {{persona.apellido}} </td>
+          <td><span class="p-column-title">Telefono</span> {{persona.telefono}} </td>
+          <td><span class="p-column-title">Comuna</span> {{persona.comuna}} </td>
+          <td>
+            <div class="grid w-full">
+              <div class="col-12 md:col-6">
+                <p-button 
+                abrir-dialog
+                [persona]="persona"
+                (response)="obtenerRespuesta($event)"
+                styleClass="w-full p-button-warning" 
+                icon="pi pi-user-edit"></p-button>
+              </div>
+              <div class="col-12 md:col-6">
+                <p-button styleClass="w-full p-button-danger" icon="pi pi-times" (onClick)="onEliminarPersona(persona)"></p-button>
+              </div>
+            </div>
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
+</ng-template>
+
+<ng-template #sindatos>
+  <div class="container-sindatos">
+    <div class="not-found">
+      <div class="btn-agregar">
+        <p-button
+          label="Agregar persona"
+          abrir-dialog
+          (response)="obtenerRespuesta($event)"
+        ></p-button>
+      </div>
+    </div>
+  </div>
+</ng-template>

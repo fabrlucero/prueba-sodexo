@@ -1,7 +1,13 @@
 export class Persona {
-    private id!: number;
-    private nombre!: string;
-    private apellido!: string;
-    private telefono!: string;
-    private comuna!: String;
+    id!: number;
+    nombre!: string;
+    apellido!: string;
+    telefono!: string;
+    comuna!: String;
+
+
+    getNombrePersona(): string{
+        return `${this.nombre} ${this.apellido}`;
+    }
+
 }
